@@ -1,0 +1,52 @@
+<div class="container-sm">
+  <h3 class="mb-5">Welcome to our support management</h3>
+  <div class="row mb-5">
+    <div class="col-12">
+      <form [formGroup]="formGroup">
+        <div class="mb-3">
+          <label for="exampleInputQ" class="form-label">Question</label>
+          <input formControlName="questions" type="text" class="form-control" id="exampleInputQ"
+            aria-describedby="qHelp">
+        </div>
+        <div class="mb-3">
+          <label for="exampleInputQ" class="form-label">Answer</label>
+          <textarea formControlName="answer" class="form-control" id="exampleInputA" aria-describedby="aHelp"
+            rows="3"></textarea>
+        </div>
+        <button *ngIf="!isEditQuestion" (click)="addQuestion()" class="btn btn-primary">Add</button>
+        <button *ngIf="isEditQuestion" (click)="saveQuestion()" class="btn btn-primary">Save</button>
+        <button *ngIf="isEditQuestion" (click)="discardChanges()" class="btn btn-primary">Discard</button>
+      </form>
+    </div>
+  </div>
+
+  <hr>
+
+  <div class="row mb-5">
+    <div class="col-12">
+      <ul class="list-group">
+        <ng-container *ngIf="questionsData && questionsData.length > 0; else noQuestions">
+          <li class="list-group-item">
+            <ul>
+              <li *ngFor="let data of questionsData" class="question">
+                {{ data.questions && data.questions.length > 0 ? data.questions : 'No question text' }}
+                <div class="flex">
+                  <button (click)="editQuestion(data)">Edit</button>
+                  <button (click)="deleteQuestion(data)">Delete</button>
+                </div>
+              </li>
+            </ul>
+          </li>
+        </ng-container>
+
+        <ng-template #noQuestions>
+          <li class="list-group-item">
+            I'll be a question on the list
+          </li>
+        </ng-template>
+      </ul>
+
+    </div>
+  </div>
+
+</div>
